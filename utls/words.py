@@ -63,3 +63,12 @@ def remove_stop_words(df, col='pros'):
     
     return reviews
 
+nlp = spacy.load('en', disable=['parser', 'ner'])
+
+def lemmatization(texts, tags=['NOUN', 'ADJ']): # filter noun and adjective
+    output = []
+    for sent in texts:
+        doc = nlp(" ".join(sent)) 
+        output.append([token.lemma_ for token in doc if token.pos_ in tags])
+    return output
+
